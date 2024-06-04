@@ -22,13 +22,15 @@ void auton(){
   */
 
 
+  Wings.spinToPosition(90, degrees);
   Wings.setBrake(hold);
-  chassis.set_coordinates(19, 16, -45);
-  chassis.drive_to_point(22, 33);
-  chassis.drive_to_point(22, 109);
-  chassis.turn_to_angle(-35);
-  chassis.drive_to_point(0, 127);
-  chassis.turn_to_angle(-90);
+  chassis.set_coordinates(19.5, 15.5, -45);
+  chassis.drive_to_point(11.5, 40);
+  chassis.drive_to_point(11.5, 106.5);
+  chassis.drive_to_point(29, 129);
+  //chassis.turn_to_angle(-35);
+  //chassis.drive_to_point(0, 127);
+  //chassis.turn_to_angle(-90);
   /*
   for(int i=0; i<=4; i++){
      
