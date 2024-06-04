@@ -5,11 +5,13 @@ void auton(){
   while (Inertial6.isCalibrating()) {
 	wait(100, msec);
   }
+
   Tail.setPosition(0,degrees);
   Wings.setPosition(0,degrees);
   Tail.setVelocity(100,percent);
   Wings.setVelocity(50,percent);
   Wings.setBrake(hold);
+  
   /*
   for(int i=0; i<=10; i++)
   {
@@ -18,6 +20,8 @@ void auton(){
     wait(1, sec);
   }
   */
+
+
   Wings.setBrake(hold);
   chassis.set_coordinates(19, 16, -45);
   chassis.drive_to_point(22, 33);
@@ -27,7 +31,7 @@ void auton(){
   chassis.turn_to_angle(-90);
   /*
   for(int i=0; i<=4; i++){
-    chassis.drive_distance(20);
+     
     chassis.drive_to_point(0, 127);
     chassis.turn_to_angle(-90);
   }
