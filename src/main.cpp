@@ -114,6 +114,8 @@ void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
   Inertial6.calibrate();
+  chassis.set_coordinates(19.5, 15.5, 45);
+
   // waits for the Inertial Sensor to calibrate
   while (Inertial6.isCalibrating()) {
 	wait(100, msec);
@@ -223,12 +225,18 @@ void usercontrol(void) {
 // Main will set up the competition functions and callbacks.
 //
 int main() {
+  // Run the pre-autonomous function.
+  pre_auton();
+  wait(10,msec);
+
+  thread screensThread = thread(update_screen);
+  screensThread.setPriority(vex::thread::threadPrioritylow);
+
   // Set up callbacks for autonomous and driver control periods.
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
 
-  // Run the pre-autonomous function.
-  pre_auton();
+
 
   // Prevent main from exiting with an infinite loop.
   while (true) {

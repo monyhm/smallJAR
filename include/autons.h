@@ -14,3 +14,6 @@ void full_test();
 void odom_test();
 void tank_odom_test();
 void holonomic_odom_test();
+
+void update_odometry_map();
+int update_screen();
