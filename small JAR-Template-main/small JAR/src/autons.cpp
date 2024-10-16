@@ -37,27 +37,12 @@ void odom_constants(){
 }
 void left()
 {
-  pneumatic.set(false);
-  chassis.set_coordinates(7.5, 24, 180);
-  chassis.drive_to_pose(63, 24, 180);
-  pneumatic.set(true);
-
-  chassis.drive_to_pose(48, 24, 0);
-  if(Distance6.value()<20)
-  {
-    intake.spin(forward);
-    escalator.spin(forward);
-    chassis.drive_to_pose(48, 48, 225);
-  }
-  else 
-  {
-    
-  }
+  leftMotorB.spin(forward);
 }
 void right()
 {
   chassis.drive_distance(-48);
-  chassis.turn_to_angle(-90);
+  /*chassis.turn_to_angle(-90);
   chassis.drive_distance(-14);
   chassis.turn_to_angle(0);
   pneumatic.set(true);
@@ -90,24 +75,37 @@ void right()
     escalator.stop();
     chassis.drive_distance(8);
   }
+  */
 }
 /**
  * The expected behavior is to return to the start position.
  */
 void drive_test(){
-  while(Inertial10.isCalibrating())
+  while(Inertial9.isCalibrating())
   {
     wait(100, msec);
   }
-  chassis.drive_distance(-48);
+  chassis.drive_distance(-42);
   chassis.turn_to_angle(-90);
-  chassis.drive_distance(-14);
+  chassis.drive_distance(16);
   chassis.turn_to_angle(0);
   pneumatic.set(true);
+  chassis.drive_distance(-16);
+  pneumatic.set(false);
+  wait(200,msec);
+  chassis.drive_distance(15);
+  escalator.setVelocity(100, percent);
+  escalator2.setVelocity(100, percent);
+  escalator.spin(forward);
+  escalator2.spin(forward);
+  wait(1200,msec);
+  chassis.turn_to_angle(90);
+  chassis.drive_distance(30);
+  /*
   chassis.drive_distance(-14);
   pneumatic.set(false);
   chassis.drive_distance(14);
-  if(Distance6.value()<15)
+  if(Distance3.value()<15)
   {
     intake.spin(forward);
     escalator.spin(forward);
@@ -133,6 +131,7 @@ void drive_test(){
     escalator.stop();
     chassis.drive_distance(8);
   }
+  */
 /**
  * The expected behavior is to return to the start angle, after making a complete turn.
  */
@@ -151,8 +150,7 @@ void turn_test(){
  */
 
 void swing_test(){
-  chassis.left_swing_to_angle(90);
-  chassis.right_swing_to_angle(0);
+  rightMotorA.spin(forward);
 }
 
 /**

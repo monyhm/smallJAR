@@ -3,19 +3,20 @@
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
-// leftMotorA           motor         11              
-// leftMotorC           motor         13              
-// rightMotorA          motor         1               
-// rightMotorC          motor         3               
-// escalator            motor         4               
+// leftMotorA           motor         2               
+// leftMotorC           motor         5               
+// rightMotorA          motor         11              
+// rightMotorC          motor         1               
+// escalator            motor         8               
 // Controller1          controller                    
 // pneumatic            digital_out   A               
-// Inertial10           inertial      10              
-// rightMotorB          motor         2               
-// leftMotorB           motor         12              
-// intake               motor         5               
-// Rotation20           rotation      20              
-// Distance6            distance      6               
+// Inertial9            inertial      9               
+// rightMotorB          motor         12              
+// leftMotorB           motor         4               
+// intake               motor         14              
+// Rotation6            rotation      6               
+// Distance3            distance      3               
+// escalator2           motor         10              
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 using namespace vex;
@@ -56,7 +57,7 @@ Drive chassis(
 //HOLONOMIC_TWO_ROTATION
 //
 //Write it here:
-TANK_ONE_FORWARD_ROTATION,
+ZERO_TRACKER_NO_ODOM,
 
 //Add the names of your Drive motors into the motor groups below, separated by commas, i.e. motor_group(Motor1,Motor2,Motor3).
 //You will input whatever motor names you chose when you configured your robot using the sidebar configurer, they don't have to be "Motor1" and "Motor2".
@@ -68,7 +69,7 @@ motor_group(leftMotorA, leftMotorB, leftMotorC),
 motor_group(rightMotorA, rightMotorB, rightMotorC),
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-PORT10,
+PORT9,
 
 //Input your wheel diameter. (4" omnis are actually closer to 4.125"):
 4.125,
@@ -141,7 +142,7 @@ void pre_auton() {
   while(!auto_started){
     
     Brain.Screen.clearScreen();
-    Brain.Screen.printAt(5, 20, "%f", Inertial10.angle());
+    Brain.Screen.printAt(5, 20, "%f", Inertial9.angle());
     Brain.Screen.printAt(5, 40, "Battery Percentage:");
     Brain.Screen.printAt(5, 60, "%d", Brain.Battery.capacity());
     Brain.Screen.printAt(5, 80, "Chassis Heading Reading:");
@@ -245,23 +246,27 @@ void usercontrol(void) {
     //Replace this line with chassis.control_tank(); for tank drive 
     //or chassis.control_holonomic(); for holo drive.
     Brain.Screen.clearScreen();
-    Brain.Screen.printAt(0,50, "X: %f", Inertial10.angle());
+    Brain.Screen.printAt(0,50, "X: %f", Inertial9.angle());
     chassis.control_arcade();
+    escalator2.setVelocity(100, percent);
     escalator.setVelocity(100, percent);
     intake.setVelocity(100, percent);
     bool pnu = false;
     if(Controller1.ButtonR2.pressing())
     {
       escalator.spin(forward);
+      escalator2.spin(forward);
       intake.spin(forward);
     }
     else if(Controller1.ButtonL2.pressing())
     {
       escalator.spin(reverse);
       intake.spin(reverse);
+      escalator2.spin(reverse);
     }
     else
     {
+      escalator2.stop();
       escalator.stop();
       intake.stop();
     }

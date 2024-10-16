@@ -10,12 +10,13 @@ extern motor rightMotorC;
 extern motor escalator;
 extern controller Controller1;
 extern digital_out pneumatic;
-extern inertial Inertial10;
+extern inertial Inertial9;
 extern motor rightMotorB;
 extern motor leftMotorB;
 extern motor intake;
-extern rotation Rotation20;
-extern distance Distance6;
+extern rotation Rotation6;
+extern distance Distance3;
+extern motor escalator2;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
