@@ -10,9 +10,9 @@
 
 void default_constants(){
   // Each constant set is in the form of (maxVoltage, kP, kI, kD, startI).
-  chassis.set_drive_constants(12, 1.5, 0.001, 5, 0);
+  chassis.set_drive_constants(12, 1.6, 0.001, 5, 0);
   chassis.set_heading_constants(6, .4, 0, 1, 0);
-  chassis.set_turn_constants(12, .08, .001, 0.5, 15);
+  chassis.set_turn_constants(12, .09, .001, 0.5, 15);
   chassis.set_swing_constants(12, .3, .001, 2, 15);
 
   // Each exit condition set is in the form of (settle_error, settle_time, timeout).
@@ -47,14 +47,15 @@ void drive_test(){
   pneumatic.set(true);
   chassis.drive_distance(-4);
   chassis.turn_to_angle(-60);
-  chassis.drive_distance(-20);
+  chassis.drive_distance(-20); 
   pneumatic.set(false);
   chassis.turn_to_angle(0);
-  chassis.drive_distance(8);
+  chassis.drive_distance(6);
   other.setVelocity(40, percent);
   other.spin(forward);
-  wait(500, msec);
+  wait(600, msec);
   other.stop();
+  other.setBrake(brake);
   chassis.drive_distance(-8);
   chassis.turn_to_angle(90);
   chassis.drive_distance(40);
@@ -63,19 +64,20 @@ void drive_test(){
   intake.spin(reverse);
   escalator.spin(reverse);
   chassis.drive_distance(24);
+  wait(800, msec);
   intake.stop();
   escalator.stop();
   pneumatic.set(true);
+  chassis.drive_distance(-2);
   chassis.turn_to_angle(0);
-  chassis.drive_distance(-24);
-  chassis.turn_to_angle(45);
-  chassis.drive_distance(-14);
-  chassis.turn_to_angle(0);
-  chassis.drive_distance(-6);
+  chassis.drive_distance(-35);
+  chassis.turn_to_angle(30);
+  chassis.drive_distance(-10);
   pneumatic.set(false);
-  chassis.drive_distance(4);
+  wait(200,msec);
+  chassis.drive_distance(10);
   chassis.turn_to_angle(-90);
-  chassis.drive_distance(24);
+  chassis.drive_distance(50);
 }
 
 /**
